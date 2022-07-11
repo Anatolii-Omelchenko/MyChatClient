@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
 
 public class Utils {
     private static final String URL = "http://127.0.0.1";
@@ -58,6 +59,7 @@ public class Utils {
             String strBuff = new String(buff, StandardCharsets.UTF_8);
 
             JsonUsers userList = gson.fromJson(strBuff, JsonUsers.class);
+            userList.getList().sort(Comparator.comparing(User::getStatus).reversed());
 
             if (userList != null) {
                 for (User user : userList.getList()) {
