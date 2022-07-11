@@ -10,6 +10,7 @@ public class Main {
         try {
             System.out.println("Input your login: ");
             String login = scanner.nextLine();
+            Utils.updateUserStatus(login);
 
             Thread th = new Thread(new GetThread(login));
             th.setDaemon(true);
@@ -20,7 +21,11 @@ public class Main {
                 String to = "All";
                 String text = input;
                 if (input.isEmpty()) {
+                    Utils.logOut(login);
                     break;
+                }
+                if (input.equals("#check")) {
+                    Utils.getOnline();
                 }
 
                 if (input.startsWith("@")) {
@@ -35,6 +40,7 @@ public class Main {
 
                 Message m = new Message(login, to, text);
                 int res = m.send(Utils.getURL() + "/add");
+                Utils.updateUserStatus(login);
 
                 if (res != 200) { // 200 OK
                     System.out.println("HTTP error ocurred: " + res);
