@@ -34,7 +34,7 @@ public class Utils {
         }
     }
 
-    public static int logOut (String login) throws IOException {
+    public static int logOut(String login) throws IOException {
         URL obj = new URL(getURL() + "/logout");
         HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 
@@ -61,14 +61,22 @@ public class Utils {
 
             if (userList != null) {
                 for (User user : userList.getList()) {
-                    System.out.println(user);
+                    if (user.status.equals("online")) {
+                        System.out.println("\033[42m" + user + "\u001B[0m");
+                    }
+                    else if(user.status.equals("waiting")){
+                        System.out.println("\033[43m" + user + "\u001B[0m");
+                    }
+                    else{
+                        System.out.println("\033[41m" + user + "\u001B[0m");
+                    }
+
                 }
             }
         } finally {
             is.close();
         }
     }
-
 
 
     private static byte[] responseBodyToArray(InputStream is) throws IOException {

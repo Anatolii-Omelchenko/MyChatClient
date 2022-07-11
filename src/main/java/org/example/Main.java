@@ -26,6 +26,7 @@ public class Main {
                 }
                 if (input.equals("#check")) {
                     Utils.getOnline();
+                    continue;
                 }
 
                 if (input.startsWith("@")) {

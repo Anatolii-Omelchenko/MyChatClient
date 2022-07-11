@@ -35,7 +35,12 @@ public class GetThread implements Runnable {
                     JsonMessages list = gson.fromJson(strBuff, JsonMessages.class);
                     if (list != null) {
                         for (Message m : list.getList()) {
-                            System.out.println(m);
+                            if (m.getTo().equals("All")) {
+                                System.out.println("\033[0;34m" + m + "\u001B[0m");
+                            }
+                            else{
+                                System.out.println("\u001B[32m" + m + "\u001B[0m");
+                            }
                             n++;
                         }
                     }
