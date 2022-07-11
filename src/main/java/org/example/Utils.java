@@ -17,6 +17,10 @@ public class Utils {
     private static final int PORT = 8080;
     private static final Gson gson = new GsonBuilder().create();
 
+    public static final String RESET_COLOR = "\u001B[0m";
+    public static final String GREEN_COLOR = "\033[42m";
+    public static final String YELLOW_COLOR = "\033[43m";
+    public static final String RED_COLOR = "\033[41m";
 
     public static String getURL() {
         return URL + ":" + PORT;
@@ -64,13 +68,13 @@ public class Utils {
             if (userList != null) {
                 for (User user : userList.getList()) {
                     if (user.status.equals("online")) {
-                        System.out.println("\033[42m" + user + "\u001B[0m");
+                        System.out.println(GREEN_COLOR + user + RESET_COLOR);
                     }
                     else if(user.status.equals("waiting")){
-                        System.out.println("\033[43m" + user + "\u001B[0m");
+                        System.out.println(YELLOW_COLOR + user + RESET_COLOR);
                     }
                     else{
-                        System.out.println("\033[41m" + user + "\u001B[0m");
+                        System.out.println(RED_COLOR + user + RESET_COLOR);
                     }
 
                 }
@@ -81,7 +85,7 @@ public class Utils {
     }
 
 
-    private static byte[] responseBodyToArray(InputStream is) throws IOException {
+    public static byte[] responseBodyToArray(InputStream is) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buff = new byte[1024];
         int r;

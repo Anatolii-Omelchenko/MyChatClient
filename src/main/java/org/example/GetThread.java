@@ -3,8 +3,6 @@ package org.example;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,7 +27,7 @@ public class GetThread implements Runnable {
 
                 InputStream is = http.getInputStream();
                 try {
-                    byte[] buff = responseBodyToArray(is);
+                    byte[] buff = Utils.responseBodyToArray(is);
                     String strBuff = new String(buff, StandardCharsets.UTF_8);
 
                     JsonMessages list = gson.fromJson(strBuff, JsonMessages.class);
@@ -54,18 +52,4 @@ public class GetThread implements Runnable {
         }
     }
 
-    private byte[] responseBodyToArray(InputStream is) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buff = new byte[1024];
-        int r;
-
-        do {
-            r = is.read(buff);
-            if (r > 0) {
-                bos.write(buff, 0, r);
-            }
-        } while (r != -1);
-
-        return bos.toByteArray();
-    }
 }
